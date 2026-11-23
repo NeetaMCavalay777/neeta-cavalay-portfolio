@@ -109,8 +109,7 @@
     font-size:clamp(26px,4.6vw,58px); line-height:1.05; margin:26px 0 0;
   }
   .hero-tag .w-red{color:var(--red)} .hero-tag .w-olive{color:var(--olive)} .hero-tag .w-teal{color:var(--teal)}
-  .hero-cols{display:grid; grid-template-columns:1fr; gap:28px; margin-top:30px}
-  @media (min-width:960px){ .hero-cols{grid-template-columns:1.25fr .75fr; gap:48px} }
+  .hero-cols{margin-top:30px; max-width:860px}
   .hero-lede{font-size:clamp(17px,1.6vw,20px); max-width:56ch; color:var(--ink)}
   .hero-lede strong{font-weight:700}
   .hero-ctas{display:flex; flex-wrap:wrap; gap:12px; margin-top:26px}
@@ -136,7 +135,6 @@
     background:var(--bg); color:var(--ink); display:flex; justify-content:space-between; gap:10px;
   }
   .portrait figcaption b{color:var(--red)}
-  #pixelfield{width:100%; height:110px; display:block; margin-top:38px; border-top:1px solid var(--line)}
   .stats{
     display:grid; grid-template-columns:repeat(2,1fr); border-top:1px solid var(--line);
   }
@@ -317,19 +315,6 @@
   }
   .rot-line #rotWord{color:var(--red); display:inline-block; transition:opacity .28s ease, transform .28s ease}
   .rot-line #rotWord.out{opacity:0; transform:translateY(6px)}
-  .art-panel{
-    border:1.5px solid var(--ink); border-radius:var(--radius); overflow:hidden; background:#160b08;
-    transform:rotate(1.6deg); box-shadow:10px 12px 0 color-mix(in srgb, var(--red) 65%, transparent);
-    max-width:420px; justify-self:end; width:100%;
-  }
-  @media (max-width:959px){ .art-panel{justify-self:start; transform:rotate(0)} }
-  .art-panel canvas{width:100%; height:auto; aspect-ratio:1/1; display:block}
-  .art-panel figcaption{
-    font-family:var(--font-m); font-size:11.5px; letter-spacing:.08em; padding:10px 14px;
-    background:var(--bg); color:var(--ink); display:flex; justify-content:space-between; gap:10px;
-  }
-  .art-panel figcaption b{color:var(--red)}
-
   /* ---------- professional highlights strip ---------- */
   .highlights{border-bottom:1px solid var(--line); background:var(--red); color:#fff}
   .highlights-in{display:grid; grid-template-columns:1fr; }
@@ -340,46 +325,6 @@
   .hl .hl-k{font-family:var(--font-m); font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:#ffe1d9}
   .hl .hl-t{font-family:var(--font-d); text-transform:uppercase; font-size:clamp(21px,2.2vw,28px); line-height:1.05; margin-top:7px}
   .hl p{margin:7px 0 0; font-size:14.5px; color:#fff; opacity:.92}
-
-  /* ---------- scroll morph ---------- */
-  .morph{position:relative; height:320vh; padding:0; border-bottom:1px solid var(--line); background:#0b0b0c}
-  .morph-sticky{position:sticky; top:57px; height:calc(100vh - 57px); height:calc(100svh - 57px); overflow:hidden}
-  #morphCanvas{position:absolute; inset:0; width:100%; height:100%; display:block}
-  .morph-cap{
-    position:absolute; left:50%; transform:translateX(-50%); bottom:26px; width:max-content; max-width:92vw; text-align:center;
-    font-family:var(--font-m); font-size:12.5px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
-    color:#f2efe9; background:rgba(11,11,12,.72); padding:10px 16px; border:1px solid #2b2b2f; border-radius:999px;
-    pointer-events:none; transition:opacity .2s linear;
-  }
-  .morph-word{
-    position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); text-align:center;
-    font-family:var(--font-d); text-transform:uppercase; font-size:clamp(38px,8vw,110px); line-height:1;
-    color:#f2efe9; opacity:0; pointer-events:none; padding:0 16px;
-    text-shadow:0 4px 34px rgba(0,0,0,.65);
-  }
-  .morph-word .red{color:var(--red)}
-  .morph-tag{
-    position:absolute; top:18px; left:50%; transform:translateX(-50%); z-index:3;
-    font-family:var(--font-m); font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#8f8a81; pointer-events:none;
-  }
-  /* the reveal living behind the glyph field */
-  .morph-reveal{
-    position:absolute; inset:0; z-index:1; display:flex; align-items:center; justify-content:center;
-    background:radial-gradient(ellipse 70% 55% at 50% 42%, rgba(255,61,23,.28), transparent 65%), #0b0b0c;
-    opacity:.12; padding:70px 18px 60px;
-  }
-  .morph-reveal-in{max-width:880px; text-align:center; color:#f2efe9}
-  .mr-kicker{font-family:var(--font-m); font-size:12px; font-weight:700; letter-spacing:.26em; text-transform:uppercase; color:var(--orange)}
-  .mr-title{font-family:var(--font-d); text-transform:uppercase; font-size:clamp(40px,7.5vw,96px); line-height:.98; margin:16px 0 0}
-  .mr-title .red{color:var(--red)} .mr-title .outline{color:transparent; -webkit-text-stroke:2px #f2efe9}
-  .mr-sub{font-size:clamp(15.5px,1.7vw,18.5px); color:#d8d2c6; max-width:58ch; margin:18px auto 0}
-  .mr-stats{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:26px}
-  .mr-stat{font-family:var(--font-m); font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; border:1.5px solid #3a3a3f; border-radius:999px; padding:10px 16px; color:#f2efe9; background:rgba(23,23,26,.8)}
-  .mr-stat b{color:var(--red)}
-  .mr-cta{display:inline-flex; margin-top:28px; background:var(--red); color:#fff; text-decoration:none; font-family:var(--font-m); font-weight:700; font-size:13px; letter-spacing:.1em; text-transform:uppercase; padding:14px 24px; border-radius:10px; min-height:50px; align-items:center}
-  .mr-cta:hover{background:var(--red-deep)}
-  #morphCanvas{z-index:2; pointer-events:none}
-  .morph-cap{z-index:3}
 
   /* ---------- upcoming ---------- */
   .up-sec{background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
@@ -500,21 +445,25 @@
   .gm-frame .gf-t{font-family:var(--font-d); text-transform:uppercase; font-size:19px; line-height:1.05}
   .gm-frame .gf-n{font-family:var(--font-m); font-size:11px; color:#ffe4de; line-height:1.6}
 
-  /* ---------- opening: noise → meaning (scatter-then-clump) ---------- */
+  /* ---------- opening: noise → meaning (one compact intro, top only) ---------- */
   .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0}
-  .clump{position:relative; height:330vh; padding:0; background:#0b0b0c; border-bottom:1px solid var(--line)}
-  .clump-sticky{position:sticky; top:57px; height:calc(100vh - 57px); height:calc(100svh - 57px); overflow:hidden}
+  .clump{position:relative; height:185vh; padding:0; background:#0b0b0c; border-bottom:1px solid var(--line)}
+  .clump-sticky{position:sticky; top:57px; height:calc(100vh - 57px); height:calc(100svh - 57px); overflow:hidden; display:flex; align-items:center; justify-content:center}
   #clumpCanvas{position:absolute; inset:0; width:100%; height:100%; display:block}
-  .clump-tag{
-    position:absolute; top:18px; left:50%; transform:translateX(-50%); z-index:3; white-space:nowrap;
-    font-family:var(--font-m); font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#8f8a81; pointer-events:none;
+  .clump-final{
+    position:relative; z-index:2; text-align:center; pointer-events:none; opacity:0;
+    font-family:var(--font-d); text-transform:uppercase; line-height:.96; letter-spacing:.01em;
+    font-size:clamp(46px,9vw,108px); color:#f7f4ee; padding:0 16px;
   }
-  .clump-who{
-    position:absolute; left:18px; bottom:20px; z-index:3;
-    font-family:var(--font-m); font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#a7a29a; pointer-events:none;
+  .clump-final .cf-line{display:block}
+  .clump-final .cf-red{color:var(--red)}
+  .clump-final .cf-amp{color:#f7f4ee}
+  .clump-hint{
+    position:absolute; left:50%; transform:translateX(-50%); bottom:24px; z-index:3;
+    font-family:var(--font-m); font-size:12px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+    color:#f2efe9; background:rgba(11,11,12,.78); border:1px solid #3a3a3f; border-radius:999px;
+    padding:10px 18px; pointer-events:none; white-space:nowrap;
   }
-  @media (max-width:640px){ .clump-who{display:none} }
-  .clump-cap{z-index:3}
 
   /* ---------- research papers in progress ---------- */
   .papers{margin-top:18px; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:clamp(24px,3.4vw,38px); position:relative; overflow:hidden}
@@ -556,14 +505,11 @@
 <main id="top">
 
   <!-- ================= OPENING: NOISE → MEANING ================= -->
-  <section class="clump" id="clump" aria-label="Opening animation: a field of scattered random letters, numbers and symbols. As you scroll, the characters clump together and form the headline — Code, Circuits and Canvas.">
+  <section class="clump" id="clump" aria-label="Opening animation: scattered letters, numbers and symbols that clump together as you scroll to form the headline — Code, Circuits and Canvas. This animation appears only here, at the very start.">
     <div class="clump-sticky">
       <canvas id="clumpCanvas" aria-hidden="true"></canvas>
-      <div class="clump-tag">Scroll experiment № 01 — noise → meaning ↓</div>
-      <div class="clump-who">Neeta Cavalay · Portfolio · RV University</div>
-      <div class="morph-cap clump-cap" id="clumpCapA">Scroll — right now, it’s just noise</div>
-      <div class="morph-cap clump-cap" id="clumpCapB" style="opacity:0">Wait — it’s clumping into something…</div>
-      <div class="morph-cap clump-cap" id="clumpCapC" style="opacity:0">Meaning, assembled — keep going ↓</div>
+      <div class="clump-final" id="clumpFinal" aria-hidden="true"><span class="cf-line">Code,</span><span class="cf-line">Circuits,</span><span class="cf-line"><span class="cf-amp">&amp;</span> <span class="cf-red">Canvas</span></span></div>
+      <div class="clump-hint" id="clumpHint">Scroll to assemble ↓</div>
     </div>
   </section>
 
@@ -600,13 +546,7 @@
             <a class="btn btn-ghost" href="https://www.linkedin.com/in/neeta-cavalay-42402b384" target="_blank" rel="noopener">LinkedIn ↗</a>
           </div>
         </div>
-        <figure class="art-panel" style="margin:0">
-          <canvas id="heroArt" width="640" height="640" aria-label="Animated pixel artwork in vermilion, orange, olive and teal — stars twinkling over a field of coloured pixels, drawn live in the browser"></canvas>
-          <figcaption><span>FIG. 01 — A CANVAS THAT NEVER SITS STILL</span><b>VERMILION × OLIVE × TEAL</b></figcaption>
-        </figure>
       </div>
-
-      <canvas id="pixelfield" aria-hidden="true"></canvas>
 
       <div class="stats" role="list" aria-label="Highlights">
         <div class="stat" role="listitem"><div class="num">8.96<em>/10</em></div><div class="lab">CGPA · BTech CSE (Hons)</div></div>
@@ -626,30 +566,6 @@
       <div class="hl"><div class="hl-k">★ Business — Keen Interest</div><div class="hl-t">AI/ML major, business minor</div><p>Entrepreneurial Economics, Design Thinking &amp; Business Ideation. I don’t just build products — I think about who they’re for, and why they’d pay.</p></div>
     </div>
   </div>
-
-  <!-- ================= SCROLL MORPH ================= -->
-  <section class="morph" id="morph" aria-label="Scroll animation: a dense field of letters, symbols and code words that clears as you scroll to reveal the highlight of this portfolio — work presented to industry">
-    <div class="morph-sticky">
-      <div class="morph-reveal" id="morphReveal">
-        <div class="morph-reveal-in">
-          <div class="mr-kicker">✦ The best part of this portfolio ✦</div>
-          <h2 class="mr-title">Work that left<br /><span class="outline">the</span> <span class="red">classroom.</span></h2>
-          <p class="mr-sub">Not a demo for marks. A working IoT build, carried out of the lab and <strong>presented live to industry professionals</strong> — demoed, questioned, and defended in front of people who ship real products.</p>
-          <div class="mr-stats">
-            <span class="mr-stat"><b>IoT</b> · Presented to industry</span>
-            <span class="mr-stat"><b>2nd</b> · of 100+ teams</span>
-            <span class="mr-stat"><b>06</b> · Systems shipped</span>
-            <span class="mr-stat"><b>8.96</b> · CGPA</span>
-          </div>
-          <a class="mr-cta" href="#lab">See the work ↓</a>
-        </div>
-      </div>
-      <canvas id="morphCanvas" aria-hidden="true"></canvas>
-      <div class="morph-tag">Scroll experiment № 02 — a wall of code, with a point ↓</div>
-      <div class="morph-cap" id="capA">Keep scrolling — the glyphs are hiding the headline</div>
-      <div class="morph-cap" id="capB" style="opacity:0">Clearing the wall…</div>
-    </div>
-  </section>
 
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track" id="marqueeTrack">
@@ -1241,7 +1157,7 @@
     <footer>
       <div class="wrap foot-in">
         <span>© 2026 NEETA MADHAV CAVALAY</span>
-        <span>BENGALURU · 12.97°N 77.59°E</span>
+        <span>BENGALURU, INDIA</span>
         <span>CODE / CIRCUITS / CANVAS</span>
         <a href="#top">BACK TO TOP ↑</a>
       </div>
@@ -1349,42 +1265,6 @@
     reset();
   }
 
-  /* ---- hero pixel field ---- */
-  var cv = document.getElementById("pixelfield");
-  if(cv && !reduceMotion){
-    var ctx = cv.getContext("2d");
-    var W, H, cols, rows, t = 0, mouseX = -999;
-    var palette = ["#ff3d17","#ff7a1a","#2ea89b","#9db35c"];
-    function size(){
-      var r = cv.getBoundingClientRect();
-      cv.width = Math.floor(r.width); cv.height = 110;
-      W = cv.width; H = cv.height; cols = Math.ceil(W/12); rows = Math.ceil(H/12);
-    }
-    size(); window.addEventListener("resize", size);
-    cv.parentElement.addEventListener("mousemove", function(e){
-      var r = cv.getBoundingClientRect(); mouseX = e.clientX - r.left;
-    });
-    cv.parentElement.addEventListener("mouseleave", function(){ mouseX = -999; });
-    (function draw(){
-      ctx.clearRect(0,0,W,H);
-      t += 0.016;
-      for(var x=0;x<cols;x++){
-        for(var y=0;y<rows;y++){
-          var px = x*12, py = y*12;
-          var wave = Math.sin(x*0.55 + t*1.6) * Math.cos(y*0.8 - t);
-          var near = Math.max(0, 1 - Math.abs(px - mouseX)/170);
-          var a = 0.10 + Math.max(0, wave)*0.22 + near*0.55;
-          var s = 2 + Math.max(0, wave)*2.5 + near*3.5;
-          ctx.fillStyle = palette[(x + y*3) % palette.length];
-          ctx.globalAlpha = Math.min(a, 0.9);
-          ctx.fillRect(px + (12-s)/2, py + (12-s)/2, s, s);
-        }
-      }
-      ctx.globalAlpha = 1;
-      requestAnimationFrame(draw);
-    })();
-  }
-
   /* ---- hero rotating word ---- */
   var rotEl = document.getElementById("rotWord");
   if(rotEl && !reduceMotion){
@@ -1400,65 +1280,26 @@
     }, 2400);
   }
 
-  /* ---- hero live art: twinkling pixel field + sparkles, Hueverse palette ---- */
-  var art = document.getElementById("heroArt");
-  if(art){
-    var actx = art.getContext("2d");
-    var AW = 640, AH = 640;
-    var artPal = ["#ff3d17","#ff7a1a","#ffc21a","#9db35c","#2ea89b"];
-    function sparkle(x, y, r, color, alpha){
-      actx.save(); actx.globalAlpha = alpha; actx.fillStyle = color;
-      actx.beginPath();
-      actx.moveTo(x, y - r); actx.quadraticCurveTo(x, y, x + r, y); actx.quadraticCurveTo(x, y, x, y + r);
-      actx.quadraticCurveTo(x, y, x - r, y); actx.quadraticCurveTo(x, y, x, y - r);
-      actx.fill(); actx.restore();
-    }
-    function drawArt(t){
-      var g = actx.createLinearGradient(0, 0, AW, AH);
-      g.addColorStop(0, "#2a0d06"); g.addColorStop(.55, "#571a08"); g.addColorStop(1, "#8f2408");
-      actx.fillStyle = g; actx.fillRect(0, 0, AW, AH);
-      var s = 18;
-      for(var x = 0; x < AW / s; x++){
-        for(var y = 0; y < AH / s; y++){
-          var wv = Math.sin(x * .7 + t * 1.3) * Math.cos(y * .9 - t * .8);
-          var a = .08 + Math.max(0, wv) * .3;
-          var sz = 2.5 + Math.max(0, wv) * 5.5;
-          actx.globalAlpha = a;
-          actx.fillStyle = artPal[(x + y * 3) % artPal.length];
-          actx.fillRect(x * s + (s - sz) / 2, y * s + (s - sz) / 2, sz, sz);
-        }
-      }
-      actx.globalAlpha = 1;
-      sparkle(215, 250, 52 + Math.sin(t * 1.7) * 7, "#ffd21a", .95);
-      sparkle(430, 235, 42 + Math.cos(t * 1.4) * 6, "#ffe94d", .95);
-      sparkle(322, 470, 22 + Math.sin(t * 2.1 + 2) * 4, "#ff7a1a", .8);
-      sparkle(120, 470, 13, "#2ea89b", .55 + Math.sin(t * 2.6) * .25);
-      sparkle(520, 450, 14, "#9db35c", .55 + Math.cos(t * 2.2) * .25);
-    }
-    if(reduceMotion){ drawArt(1.2); }
-    else{
-      (function artLoop(ts){ drawArt((ts || 0) / 1000); requestAnimationFrame(artLoop); })(0);
-    }
-  }
-
-  /* ---- opening: scattered letters, numbers and symbols that CLUMP
-         together as you scroll, forming the headline CODE, CIRCUITS, & CANVAS.
-         Each glyph starts at a random scattered position; scroll progress
-         flies it to its target point inside the headline's letterforms. ---- */
+  /* ---- opening (top of page only): scattered letters, numbers and symbols
+         clump together as you scroll, forming CODE, CIRCUITS, & CANVAS.
+         Rendered at device-pixel ratio with large glyphs for a crisp result;
+         once formed, a clean solid headline fades in so it reads perfectly.
+         This effect exists only here — it never repeats further down. ---- */
   var clumpSec = document.getElementById("clump");
   var ccv = document.getElementById("clumpCanvas");
   if(clumpSec && ccv){
     var cctx = ccv.getContext("2d");
-    var CW = 0, CH = 0, cParts = [], cNoise = [], cProg = -1, cInit = false;
-    var cCapA = document.getElementById("clumpCapA"),
-        cCapB = document.getElementById("clumpCapB"),
-        cCapC = document.getElementById("clumpCapC");
-    var CCHARS = "ABCDEFGHKMNPRSTWXYZ023456789{}<>()[]/|*#@$%&+=;:!?✦★→λπµΩ§#01";
+    var CW = 0, CH = 0, DPR = 1, cParts = [], cProg = -1, cInit = false;
+    var cFinal = document.getElementById("clumpFinal");
+    var cHint = document.getElementById("clumpHint");
+    var CCHARS = "ABCDEHKMNPRSTWXYZ023456789{}<>()[]#@$%&+=;:!?";
     function chash(n){ var v = Math.sin(n * 269.5 + 183.3) * 43758.5453; return v - Math.floor(v); }
     function buildClump(){
       var r = ccv.parentElement.getBoundingClientRect();
       CW = Math.max(300, Math.floor(r.width)); CH = Math.max(300, Math.floor(r.height));
-      ccv.width = CW; ccv.height = CH;
+      DPR = Math.min(2, window.devicePixelRatio || 1);
+      ccv.width = Math.floor(CW * DPR); ccv.height = Math.floor(CH * DPR);
+      cctx.setTransform(DPR, 0, 0, DPR, 0, 0);
       var lines = ["CODE,", "CIRCUITS,", "& CANVAS"];
       var off = document.createElement("canvas"); off.width = CW; off.height = CH;
       var o = off.getContext("2d");
@@ -1466,91 +1307,63 @@
       o.font = "400 " + base + "px Anton, Impact, sans-serif";
       var maxW = 0;
       lines.forEach(function(L){ maxW = Math.max(maxW, o.measureText(L).width); });
-      var fs = Math.min(base * (CW * 0.94) / Math.max(1, maxW), (CH * 0.60) / 3.1, 215);
-      fs = Math.max(34, fs);
+      var fs = Math.min(base * (CW * 0.88) / Math.max(1, maxW), (CH * 0.52) / 3.1, 118);
+      fs = Math.max(36, fs);
       var lh = fs * 1.04, yStart = CH / 2 - lh;
       o.font = "400 " + fs + "px Anton, Impact, sans-serif";
       o.textAlign = "center"; o.textBaseline = "middle"; o.fillStyle = "#fff";
       lines.forEach(function(L, i){ o.fillText(L, CW / 2, yStart + i * lh); });
-      var img;
-      try{ img = o.getImageData(0, 0, CW, CH).data; }catch(e){ img = null; }
+      var img = null;
+      try{ img = o.getImageData(0, 0, CW, CH).data; }catch(e){}
       var pts = [];
       if(img){
-        var gap = CW < 640 ? 8 : 10;
+        var gap = CW < 640 ? 11 : 13;
         for(var y = gap / 2; y < CH; y += gap){
           for(var x = gap / 2; x < CW; x += gap){
             if(img[(Math.floor(y) * CW + Math.floor(x)) * 4 + 3] > 110){
-              var li = Math.round((y - yStart) / lh);
-              li = Math.max(0, Math.min(2, li));
+              var li = Math.max(0, Math.min(2, Math.round((y - yStart) / lh)));
               pts.push({ x: x, y: y, line: li });
             }
           }
         }
-        /* thin out evenly if oversampled */
-        if(pts.length > 2600){
-          var stepK = pts.length / 2600, thinned = [];
+        if(pts.length > 1500){
+          var stepK = pts.length / 1500, thinned = [];
           for(var k = 0; k < pts.length; k += stepK) thinned.push(pts[Math.floor(k)]);
           pts = thinned;
         }
       }
+      var gSize = CW < 640 ? 12 : 13.5;
       cParts = pts.map(function(pt, i){
         var h1 = chash(i), h2 = chash(i + 4000), h3 = chash(i + 8000);
-        var col;
-        if(pt.line === 0) col = h2 > 0.82 ? "#ff7a1a" : "#f2efe9";
-        else if(pt.line === 1) col = h2 > 0.88 ? "#ff3d17" : (h2 > 0.45 ? "#f2efe9" : "#d8d2c6");
-        else col = pt.x < CW * 0.30 ? "#f2efe9" : (h2 > 0.4 ? "#ff3d17" : "#ff7a1a");
+        var col = "#f7f4ee";
+        if(pt.line === 2) col = pt.x < CW / 2 - fs * 0.55 ? "#f7f4ee" : "#ff3d17";
+        else if(h2 > 0.93) col = "#ff7a1a";
         return {
           tx: pt.x, ty: pt.y,
           sx: h1 * CW, sy: h2 * CH,
           ch: CCHARS[Math.floor(h3 * CCHARS.length)],
-          col: col,
-          th: h1 * 0.42,
-          size: (CW < 640 ? 8.5 : 10.5) * (0.85 + h3 * 0.3)
+          col: col, th: h1 * 0.35, size: gSize
         };
       });
-      cNoise = [];
-      var nCount = Math.floor(cParts.length * 0.38);
-      for(var n = 0; n < nCount; n++){
-        var nh1 = chash(n + 20000), nh2 = chash(n + 26000), nh3 = chash(n + 32000);
-        cNoise.push({
-          x: nh1 * CW, y: nh2 * CH,
-          ch: CCHARS[Math.floor(nh3 * CCHARS.length)],
-          col: nh2 > 0.8 ? "#ff3d17" : "#8f8a81",
-          dx: (nh2 - 0.5) * 90, dy: (nh3 - 0.5) * 90,
-          size: 9.5 * (0.8 + nh1 * 0.4)
-        });
-      }
       cProg = -1;
     }
     function drawClump(p){
       cctx.fillStyle = "#0b0b0c"; cctx.fillRect(0, 0, CW, CH);
       cctx.textAlign = "center"; cctx.textBaseline = "middle";
-      var i, g, local, ease;
-      /* pure-noise glyphs: drift and fade as meaning forms */
-      var nAlpha = 0.55 * Math.max(0, 1 - p / 0.72);
-      if(nAlpha > 0.01){
-        for(i = 0; i < cNoise.length; i++){
-          g = cNoise[i];
-          cctx.font = g.size.toFixed(1) + "px 'JetBrains Mono', monospace";
-          cctx.globalAlpha = nAlpha;
-          cctx.fillStyle = g.col;
-          cctx.fillText(g.ch, g.x + g.dx * p, g.y + g.dy * p);
-        }
-      }
-      /* headline glyphs: scattered → clumped */
-      for(i = 0; i < cParts.length; i++){
-        g = cParts[i];
-        local = Math.min(1, Math.max(0, (p - g.th) / 0.5));
-        ease = 1 - Math.pow(1 - local, 3);
-        cctx.font = "700 " + g.size.toFixed(1) + "px 'JetBrains Mono', monospace";
-        cctx.globalAlpha = 0.5 + 0.5 * ease;
+      var finalP = Math.min(1, Math.max(0, (p - 0.86) / 0.12));
+      var glyphFade = 1 - finalP * 0.88;
+      for(var i = 0; i < cParts.length; i++){
+        var g = cParts[i];
+        var local = Math.min(1, Math.max(0, (p - g.th) / 0.55));
+        var ease = 1 - Math.pow(1 - local, 3);
+        cctx.font = "700 " + g.size + "px 'JetBrains Mono', monospace";
+        cctx.globalAlpha = (0.92) * glyphFade;
         cctx.fillStyle = g.col;
         cctx.fillText(g.ch, g.sx + (g.tx - g.sx) * ease, g.sy + (g.ty - g.sy) * ease);
       }
       cctx.globalAlpha = 1;
-      if(cCapA) cCapA.style.opacity = p < 0.16 ? String(1 - p / 0.16) : "0";
-      if(cCapB) cCapB.style.opacity = (p >= 0.22 && p < 0.78) ? "1" : "0";
-      if(cCapC) cCapC.style.opacity = p >= 0.84 ? String(Math.min(1, (p - 0.84) / 0.1)) : "0";
+      if(cFinal) cFinal.style.opacity = String(finalP);
+      if(cHint) cHint.style.opacity = p < 0.08 ? "1" : "0";
     }
     function clumpProgress(){
       var rect = clumpSec.getBoundingClientRect();
@@ -1581,93 +1394,6 @@
       document.fonts.ready.then(function(){ if(!cDone){ cDone = true; initClump(); } });
       setTimeout(function(){ if(!cDone){ cDone = true; initClump(); } }, 1500);
     } else { initClump(); }
-  }
-
-  /* ---- scroll morph: a dense glyph wall (letters, symbols, code words)
-         that thins out as you scroll, revealing the portfolio's headline:
-         work presented to industry professionals ---- */
-  var morphSec = document.getElementById("morph");
-  var mc = document.getElementById("morphCanvas");
-  var revealEl = document.getElementById("morphReveal");
-  if(morphSec && mc){
-    var mctx = mc.getContext("2d");
-    var MW = 0, MH = 0, mGlyphs = [], mProg = -1;
-    var capA = document.getElementById("capA"), capB = document.getElementById("capB");
-    var CHARS = "ABCDEFGHKMNPRSTXYZ023456789{}<>()[]/|*#@$%&+=;:!?✦★→λπµΩ§";
-    var WORDS = ["while(1)","{kernel}","ESP32","GENOME","SIR→R","SQL;","PID 1","#include","0x2F","ML::","IoT","boot()","&&","!=","++","OncoMap","CycleSafe","<OS>","main()","0b101","Σ","Δx","∫"];
-    var GCOLS = ["#f2efe9","#f2efe9","#f2efe9","#d8d2c6","#ff3d17","#ff7a1a","#2ea89b","#9db35c"];
-    function hash(n){ var v = Math.sin(n * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); }
-    function buildMorph(){
-      var r = mc.parentElement.getBoundingClientRect();
-      MW = Math.max(300, Math.floor(r.width)); MH = Math.max(300, Math.floor(r.height));
-      mc.width = MW; mc.height = MH;
-      var cw = MW < 640 ? 25 : 34, chh = MW < 640 ? 20 : 25;
-      mGlyphs = [];
-      var idx = 0;
-      for(var gy = chh/2; gy < MH; gy += chh){
-        for(var gx = cw/2; gx < MW; gx += cw){
-          var h1 = hash(idx), h2 = hash(idx + 5000), h3 = hash(idx + 9000);
-          var isWord = h3 > 0.965;
-          mGlyphs.push({
-            x: gx, y: gy,
-            txt: isWord ? WORDS[Math.floor(h2 * WORDS.length)] : CHARS[Math.floor(h1 * CHARS.length)],
-            word: isWord,
-            col: isWord ? "#ffc21a" : GCOLS[Math.floor(h2 * GCOLS.length)],
-            th: 0.04 + Math.pow(h1, 1.35) * 0.86,
-            dx: (h2 - 0.5) * 130, dy: (h3 - 0.35) * 110
-          });
-          idx++;
-        }
-      }
-      mProg = -1;
-    }
-    function drawMorph(p){
-      mctx.fillStyle = "#0b0b0c"; mctx.fillRect(0, 0, MW, MH);
-      mctx.textAlign = "center"; mctx.textBaseline = "middle";
-      for(var i = 0; i < mGlyphs.length; i++){
-        var g = mGlyphs[i];
-        var local = (p - g.th) / Math.max(0.001, 1 - g.th);
-        local = Math.min(1, Math.max(0, local));
-        var alpha = 1 - local;
-        if(alpha <= 0.01) continue;
-        var size = (g.word ? 10.5 : 11.5) * (1 - local * 0.35);
-        mctx.font = (g.word ? "700 " : "") + size.toFixed(1) + "px 'JetBrains Mono', monospace";
-        mctx.globalAlpha = alpha * (g.word ? 0.95 : 0.88);
-        mctx.fillStyle = g.col;
-        mctx.fillText(g.txt, g.x + g.dx * local, g.y + g.dy * local);
-      }
-      mctx.globalAlpha = 1;
-      if(revealEl){
-        var rp = Math.min(1, Math.max(0, (p - 0.30) / 0.5));
-        revealEl.style.opacity = String(0.12 + rp * 0.88);
-        revealEl.style.pointerEvents = p > 0.72 ? "auto" : "none";
-      }
-      if(capA) capA.style.opacity = p < .22 ? String(1 - p / .22) : "0";
-      if(capB) capB.style.opacity = (p >= .22 && p < .8) ? "1" : "0";
-    }
-    function morphProgress(){
-      var rect = morphSec.getBoundingClientRect();
-      var total = morphSec.offsetHeight - window.innerHeight;
-      if(total <= 0) return 0;
-      return Math.min(1, Math.max(0, -rect.top / total));
-    }
-    var mTick = false;
-    function onMorphScroll(){
-      if(mTick) return; mTick = true;
-      requestAnimationFrame(function(){
-        mTick = false;
-        var p = morphProgress();
-        if(Math.abs(p - mProg) > .002){ mProg = p; drawMorph(p); }
-      });
-    }
-    buildMorph();
-    if(reduceMotion){ drawMorph(1); if(revealEl) revealEl.style.opacity = "1"; mProg = 1; }
-    else{
-      drawMorph(0);
-      window.addEventListener("scroll", onMorphScroll, { passive: true });
-      window.addEventListener("resize", function(){ buildMorph(); drawMorph(morphProgress()); });
-      onMorphScroll();
-    }
   }
 
   /* ---- MiniOS scheduling demo ---- */
