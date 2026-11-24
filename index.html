@@ -288,15 +288,24 @@ render();var btn=document.getElementById("simBtn");if(!btn)return;btn.addEventLi
 function clearEpi(){if(epiTimer){clearInterval(epiTimer);epiTimer=null;}}
 function stopTimers(){if(autoTimer){clearInterval(autoTimer);autoTimer=null;}if(progTimer){clearInterval(progTimer);progTimer=null;}}
 function render(i){
+  try{
   cur=i;var p=P[i];clearEpi();
   rail.querySelectorAll(".pill").forEach(function(b,x){b.classList.toggle("on",x===i);b.setAttribute("aria-selected",x===i?"true":"false");});
   var chips=p.tags.map(function(t,ci){return '<span class="chip" style="animation-delay:'+(ci*0.06)+'s">'+t+"</span>";}).join("");
   txt.innerHTML='<h3 class="ptitle">'+p.t+'</h3><div class="pkind">'+p.k+'</div><p class="pdesc">'+p.d+'</p><div class="chips">'+chips+'</div><a class="plink" href="'+p.link+'" target="_blank" rel="noopener">'+p.lt.toUpperCase()+"</a>";
-  vis.innerHTML='<div class="vh"><span><b>■</b> '+p.vh+'</span><span>/0'+(i+1)+' / 06</span></div><div class="vart">'+visHTML(p)+'</div><p class="vcap">'+p.vc+"</p>";
+  vis.innerHTML='<div class="vh"><span><b>\u25a0</b> '+p.vh+'</span><span>/0'+(i+1)+' / 06</span></div><div class="vart">'+visHTML(p)+'</div><p class="vcap">'+p.vc+"</p>";
   [txt,vis].forEach(function(el){el.classList.remove("enter");void el.offsetWidth;el.classList.add("enter");});
   stageEl.setAttribute("data-project",p.t.toLowerCase().replace(/[^a-z0-9]+/g,"-"));
+  stageEl.setAttribute("data-vis-kids",String(vis.children.length));
+  stageEl.setAttribute("data-vis-head",vis.textContent.slice(0,40));
   initEpi();
+  }catch(err){
+    autoL.textContent="RENDER ERROR: "+err.message;
+    document.title="ERR: "+err.message;
+    stageEl.setAttribute("data-vis-err",err.message);
+  }
 }
+
 function startAuto(){
   stopTimers();if(!auto||RM){bar.style.width="0%";return;}
   progStart=Date.now();
