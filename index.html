@@ -61,6 +61,14 @@ h2.t{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:cl
 .stage-in{display:grid;grid-template-columns:1fr;gap:0}@media(min-width:900px){.stage-in{grid-template-columns:1.05fr .95fr}}
 .stage-txt{padding:clamp(20px,3vw,34px)}
 .stage-txt.swap,.stage-vis.swap{animation:swap .45s cubic-bezier(.2,.8,.2,1)}@keyframes swap{from{opacity:0;transform:translateY(14px) scale(.99)}to{opacity:1;transform:none}}
+.stage-txt.enter,.stage-vis.enter{animation:enter .5s cubic-bezier(.2,.8,.2,1)}@keyframes enter{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.chip{animation:chipin .45s cubic-bezier(.2,.8,.2,1) backwards}@keyframes chipin{from{opacity:0;transform:translateY(8px) scale(.92)}to{opacity:1;transform:none}}
+.epi .ec{animation:cellin .3s backwards}@keyframes cellin{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+.big36{animation:pop .5s backwards}
+.sql{animation:enter .5s ease backwards}
+.prog i{transition:width .12s linear}
+.pill.on{animation:pillpop .3s ease}@keyframes pillpop{50%{transform:scale(1.06)}}
+.stage:focus-visible{outline:2px solid var(--red);outline-offset:3px}
 .ptitle{font-family:var(--fd);text-transform:uppercase;font-size:clamp(38px,5.5vw,64px);line-height:.95;margin:0}
 .pkind{font-family:var(--fm);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--red);font-weight:700;margin-top:8px}
 .pdesc{font-size:16px;margin:14px 0 0;max-width:54ch}.pdesc strong{color:var(--red)}
@@ -153,9 +161,9 @@ footer{border-top:1px solid var(--line);padding:16px 0 22px;margin-top:28px}.foo
 <section id="lab"><div class="wrap">
 <div class="sec-head reveal"><div><div class="k">01 — Projects</div><h2 class="t">The Lab</h2></div><p class="note">Six builds, one stage. Tap through — it also plays on its own.</p></div>
 <div class="rail" id="rail" role="tablist" aria-label="Projects"></div>
-<div class="stage" id="stage">
+<div class="stage" id="stage" tabindex="0" aria-label="Projects — use left and right arrow keys to change project">
 <div class="stage-in">
-<div class="stage-txt" id="stageTxt"></div>
+<div class="stage-txt" id="stageTxt" aria-live="polite"></div>
 <div class="stage-vis" id="stageVis"></div>
 </div>
 </div>
@@ -245,14 +253,14 @@ var rot=document.getElementById("rotWord"),words=["working systems","live circui
 if(!RM)setInterval(function(){rot.classList.add("out");setTimeout(function(){wi=(wi+1)%words.length;rot.textContent=words[wi];rot.classList.remove("out");},260);},2400);
 /* hero canvas — light constellation */
 var hero=document.querySelector(".hero"),cv=document.getElementById("heroCanvas");
-if(cv){var ctx=cv.getContext("2d"),W=0,H=0,nodes=[],mouse={x:-9999,y:-9999},vis=true,COLS=["#ff3d17","#ff7a1a","#2ea89b","#9db35c"];
+if(cv){var ctx=null;try{ctx=cv.getContext("2d")}catch(e){ctx=null}var W=0,H=0,nodes=[],mouse={x:-9999,y:-9999},vis=true,COLS=["#ff3d17","#ff7a1a","#2ea89b","#9db35c"];
 function build(){var r=hero.getBoundingClientRect();W=r.width;H=r.height;var d=Math.min(2,devicePixelRatio||1);cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);var n=Math.round(Math.min(70,Math.max(30,W*H/22000)));nodes=[];for(var i=0;i<n;i++)nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:1.3+Math.random()*1.8,c:COLS[i%4]});}
 function frame(){ctx.clearRect(0,0,W,H);var i,j,a,b;for(i=0;i<nodes.length;i++){a=nodes[i];for(j=i+1;j<nodes.length;j++){b=nodes[j];var dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy;if(d2<16900){ctx.strokeStyle="rgba(255,61,23,"+(0.15*(1-Math.sqrt(d2)/130)).toFixed(3)+")";ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}}
-for(i=0;i<nodes.length;i++){a=nodes[i];var mx=mouse.x-a.x,my=mouse.y-a.y,md=mx*mx+my*my;if(md<32400&&md>4){var dd=Math.sqrt(md);a.vx+=mx/dd*.012;a.vy+=my/dd*.012;}a.vx*=.985;a.vy*=.985;a.x+=a.vx;a.y+=a.vy;if(a.x<-10)a.x=W+10;if(a.x>W+10)a.x=-10;if(a.y<-10)a.y=H+10;if(a.y>H+10)a.y=-10;ctx.globalAlpha=.9;ctx.fillStyle=a.c;ctx.beginPath();ctx.arc(a.x,a.y,a.r,0,6.283);ctx.fill();}ctx.globalAlpha=1;if(vis&&!RM)requestAnimationFrame(frame);}
-build();frame();
+for(i=0;i<nodes.length;i++){a=nodes[i];var mx=mouse.x-a.x,my=mouse.y-a.y,md=mx*mx+my*my;if(md<32400&&md>4){var dd=Math.sqrt(md);a.vx+=mx/dd*.012;a.vy+=my/dd*.012;}a.vx*=.985;a.vy*=.985;a.x+=a.vx;a.y+=a.vy;if(a.x<-10)a.x=W+10;if(a.x>W+10)a.x=-10;if(a.y<-10)a.y=H+10;if(a.y>H+10)a.y=-10;ctx.globalAlpha=.9;ctx.fillStyle=a.c;ctx.beginPath();ctx.arc(a.x,a.y,a.r,0,6.283);ctx.fill();}ctx.globalAlpha=1;if(vis&&!RM&&ctx)requestAnimationFrame(frame);}
+if(ctx){build();frame();}
 hero.addEventListener("pointermove",function(e){var r=hero.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});
-if("IntersectionObserver" in window)new IntersectionObserver(function(e){vis=e[0].isIntersecting;if(vis&&!RM)requestAnimationFrame(frame);}).observe(hero);
-window.addEventListener("resize",function(){build();if(RM)frame();});}
+if("IntersectionObserver" in window)new IntersectionObserver(function(e){vis=e[0].isIntersecting;if(vis&&!RM&&ctx)requestAnimationFrame(frame);}).observe(hero);
+window.addEventListener("resize",function(){if(ctx){build();if(RM)frame();}});}
 /* PROJECTS */
 var P=[
 {t:"OncoMap",k:"Genomics · ML · Capstone",d:"<strong>The build:</strong> an interactive anatomical map + gene mapper (React/Vite) with a Python Streamlit classifier trained on TCGA data. Pick a cancer, see where it lives, which genes drive it, how the model reads it.",tags:["React","Python","Streamlit","ML Classification","TCGA — 6 cohorts"],link:"https://github.com/NeetaMCavalay777/oncomap",lt:"View repo ↗",vh:"TCGA COHORTS",vc:"<b>Anatomy first, data second.</b> Every cohort has a place and a gene story — not just a label.",vis:"cohorts"},
@@ -262,9 +270,10 @@ var P=[
 {t:"Cart / DBMS",k:"Databases · MySQL",d:"<strong>The build:</strong> a database-driven shopping cart in MySQL — normalised schema, relational integrity, and queries that keep stock, orders and money agreeing with each other.",tags:["MySQL","SQL","Schema Design","Relational Modelling"],link:"https://github.com/NeetaMCavalay777",lt:"More builds ↗",vh:"QUERY LOG · MYSQL",vc:"<b>One source of truth.</b> If the joins are right, the store can’t lie.",vis:"sql"},
 {t:"SIH Build",k:"Hackathon · Smart India Hackathon",d:"<strong>The format:</strong> a real problem statement and a clock. No tutorials, no extensions. It proved I can scope fast, build with a team under pressure, and ship for judges — at national scale.",tags:["Rapid Prototyping","Teamwork","Pitching"],link:"https://github.com/NeetaMCavalay777",lt:"Follow the builds ↗",vh:"HACK MODE · SIH",vc:"<b>Pressure is a feature.</b> Problem → prototype → pitch.",vis:"sih"}
 ];
-var rail=document.getElementById("rail"),txt=document.getElementById("stageTxt"),vis=document.getElementById("stageVis"),bar=document.getElementById("progBar"),autoL=document.getElementById("autoLabel");
-var cur=0,auto=true,progT=null,epiTimer=null;
-P.forEach(function(p,i){var b=document.createElement("button");b.className="pill"+(i===0?" on":"");b.setAttribute("role","tab");b.innerHTML="<small>/0"+(i+1)+"</small>"+p.t;b.addEventListener("click",function(){auto=false;autoL.textContent="Manual mode — use arrows or pills";show(i);});rail.appendChild(b);});
+var rail=document.getElementById("rail"),txt=document.getElementById("stageTxt"),vis=document.getElementById("stageVis"),bar=document.getElementById("progBar"),autoL=document.getElementById("autoLabel"),stageEl=document.getElementById("stage");
+var cur=0,auto=true,autoTimer=null,progTimer=null,epiTimer=null,progStart=Date.now(),paused=false;
+P.forEach(function(p,i){var b=document.createElement("button");b.className="pill"+(i===0?" on":"");b.setAttribute("role","tab");b.setAttribute("data-i",String(i));b.setAttribute("aria-selected",i===0?"true":"false");b.innerHTML="<small>/0"+(i+1)+"</small>"+p.t;rail.appendChild(b);});
+rail.addEventListener("click",function(e){var b=e.target.closest?e.target.closest(".pill"):null;if(!b)return;show(parseInt(b.getAttribute("data-i"),10),true);});
 function visHTML(p){
 if(p.vis==="cohorts")return '<div class="cohorts">'+["BRCA · Breast","KIRC · Kidney","COAD · Colon","LUAD · Lung","PRAD · Prostate","SARC · Sarcoma"].map(function(c,i){return '<span class="cohort'+(i%2===0?" hot":"")+'" style="animation-delay:'+(i*0.08)+'s">'+c+"</span>";}).join("")+"</div>";
 if(p.vis==="epi")return '<div class="epi" id="epiGrid"></div><button class="simbtn" id="simBtn">▶ Run outbreak</button><div class="simread" id="simRead">DAY <b>0</b> · INFECTED <b>1</b></div>';
@@ -273,18 +282,40 @@ if(p.vis==="braille"){var map={T:[1,2,3,4],O:[0,2,4],U:[0,2,5],C:[0,3],H:[0,1,3,
 if(p.vis==="sql")return '<div class="sql"><span class="kw">SELECT</span> p.name, <span class="fn">SUM</span>(oi.qty * p.price) <span class="kw">AS</span> total\n<span class="kw">FROM</span> orders o\n<span class="kw">JOIN</span> order_items oi <span class="kw">ON</span> oi.order_id = o.id\n<span class="kw">GROUP BY</span> p.name <span class="kw">ORDER BY</span> total <span class="kw">DESC</span>;</div>';
 return '<div class="big36">36<span>H</span></div><div style="text-align:center;font-family:var(--fm);font-size:11px;letter-spacing:.22em;color:#8f8a81">PROBLEM → PROTOTYPE → PITCH</div>';
 }
-function initEpi(){var g=document.getElementById("epiGrid");if(!g)return;if(epiTimer){clearInterval(epiTimer);epiTimer=null;}var N=12,st=[],cells=[],day=0,i;for(i=0;i<N*N;i++){var c=document.createElement("div");c.className="ec";g.appendChild(c);cells.push(c);st.push("S");}st[78]="I";
+function initEpi(){var g=document.getElementById("epiGrid");if(!g)return;if(epiTimer){clearInterval(epiTimer);epiTimer=null;}var N=12,st=[],cells=[],day=0,i;for(i=0;i<N*N;i++){var c=document.createElement("div");c.className="ec";c.style.animationDelay=(i*0.004)+"s";g.appendChild(c);cells.push(c);st.push("S");}st[78]="I";
 function render(){var inf=0,rec=0;st.forEach(function(s,x){cells[x].className="ec"+(s==="S"?"":" "+s);if(s==="I")inf++;if(s==="R")rec++;});var r=document.getElementById("simRead");if(r)r.innerHTML="DAY <b>"+day+"</b> · INFECTED <b>"+inf+"</b> · RECOVERED <b>"+rec+"</b>";return inf;}
-render();var btn=document.getElementById("simBtn");btn.addEventListener("click",function(){if(epiTimer){clearInterval(epiTimer);epiTimer=null;btn.textContent="▶ Run outbreak";return;}if(!st.some(function(s){return s==="I";})){st=st.map(function(){return "S";});st[78]="I";day=0;render();}btn.textContent="❚❚ Pause";epiTimer=setInterval(function(){day++;var nx=st.slice();for(var idx=0;idx<st.length;idx++){if(st[idx]!=="I")continue;var x=idx%N,y=Math.floor(idx/N);[[1,0],[-1,0],[0,1],[0,-1]].forEach(function(d){var ax=x+d[0],ay=y+d[1];if(ax<0||ay<0||ax>=N||ay>=N)return;var ni=ay*N+ax;if(st[ni]==="S"&&Math.random()<.55)nx[ni]="I";});if(Math.random()<.16)nx[idx]="R";}st=nx;if(render()===0||day>90){clearInterval(epiTimer);epiTimer=null;btn.textContent="↻ Run again";}},340);});}
-function show(i){cur=i;var p=P[i];rail.querySelectorAll(".pill").forEach(function(b,x){b.classList.toggle("on",x===i);});
-txt.classList.remove("swap");vis.classList.remove("swap");void txt.offsetWidth;txt.classList.add("swap");vis.classList.add("swap");
-txt.innerHTML='<h3 class="ptitle">'+p.t+'</h3><div class="pkind">'+p.k+'</div><p class="pdesc">'+p.d+'</p><div class="chips">'+p.tags.map(function(t){return '<span class="chip">'+t+"</span>";}).join("")+'</div><a class="plink" href="'+p.link+'" target="_blank" rel="noopener">'+p.lt.toUpperCase()+"</a>";
-vis.innerHTML='<div class="vh"><span><b>■</b> '+p.vh+'</span><span>/0'+(i+1)+' / 06</span></div><div class="vart">'+visHTML(p)+'</div><p class="vcap">'+p.vc+"</p>";
-initEpi();startProg();}
-function startProg(){if(progT)cancelAnimationFrame(progT);if(!auto||RM){bar.style.width="0";return;}var t0=null;function step(ts){if(!t0)t0=ts;var pr=(ts-t0)/5000;bar.style.width=Math.min(100,pr*100)+"%";if(pr<1){progT=requestAnimationFrame(step);}else{show((cur+1)%P.length);}}progT=requestAnimationFrame(step);}
-document.getElementById("prev").addEventListener("click",function(){auto=false;autoL.textContent="Manual mode";show((cur+P.length-1)%P.length);});
-document.getElementById("nextP").addEventListener("click",function(){auto=false;autoL.textContent="Manual mode";show((cur+1)%P.length);});
-show(0);
+render();var btn=document.getElementById("simBtn");if(!btn)return;btn.addEventListener("click",function(){if(epiTimer){clearInterval(epiTimer);epiTimer=null;btn.textContent="▶ Run outbreak";return;}if(!st.some(function(s){return s==="I";})){st=st.map(function(){return "S";});st[78]="I";day=0;render();}btn.textContent="❚❚ Pause";epiTimer=setInterval(function(){day++;var nx=st.slice();for(var idx=0;idx<st.length;idx++){if(st[idx]!=="I")continue;var x=idx%N,y=Math.floor(idx/N);[[1,0],[-1,0],[0,1],[0,-1]].forEach(function(d){var ax=x+d[0],ay=y+d[1];if(ax<0||ay<0||ax>=N||ay>=N)return;var ni=ay*N+ax;if(st[ni]==="S"&&Math.random()<.55)nx[ni]="I";});if(Math.random()<.16)nx[idx]="R";}st=nx;if(render()===0||day>90){clearInterval(epiTimer);epiTimer=null;btn.textContent="↻ Run again";}},340);});}
+function clearEpi(){if(epiTimer){clearInterval(epiTimer);epiTimer=null;}}
+function stopTimers(){if(autoTimer){clearInterval(autoTimer);autoTimer=null;}if(progTimer){clearInterval(progTimer);progTimer=null;}}
+function render(i){
+  cur=i;var p=P[i];clearEpi();
+  rail.querySelectorAll(".pill").forEach(function(b,x){b.classList.toggle("on",x===i);b.setAttribute("aria-selected",x===i?"true":"false");});
+  var chips=p.tags.map(function(t,ci){return '<span class="chip" style="animation-delay:'+(ci*0.06)+'s">'+t+"</span>";}).join("");
+  txt.innerHTML='<h3 class="ptitle">'+p.t+'</h3><div class="pkind">'+p.k+'</div><p class="pdesc">'+p.d+'</p><div class="chips">'+chips+'</div><a class="plink" href="'+p.link+'" target="_blank" rel="noopener">'+p.lt.toUpperCase()+"</a>";
+  vis.innerHTML='<div class="vh"><span><b>■</b> '+p.vh+'</span><span>/0'+(i+1)+' / 06</span></div><div class="vart">'+visHTML(p)+'</div><p class="vcap">'+p.vc+"</p>";
+  [txt,vis].forEach(function(el){el.classList.remove("enter");void el.offsetWidth;el.classList.add("enter");});
+  stageEl.setAttribute("data-project",p.t.toLowerCase().replace(/[^a-z0-9]+/g,"-"));
+  initEpi();
+}
+function startAuto(){
+  stopTimers();if(!auto||RM){bar.style.width="0%";return;}
+  progStart=Date.now();
+  progTimer=setInterval(function(){if(!auto){bar.style.width="0%";return;}if(paused)return;bar.style.width=Math.min(100,(Date.now()-progStart)/5000*100)+"%";},100);
+  autoTimer=setInterval(function(){if(!auto||paused)return;render((cur+1)%P.length);progStart=Date.now();},5000);
+}
+function show(i,manual){
+  if(manual){auto=false;stopTimers();bar.style.width="0%";autoL.textContent="Manual mode — use arrows or pills";}
+  render(i);
+  if(auto)progStart=Date.now();
+}
+document.getElementById("prev").addEventListener("click",function(){show((cur+P.length-1)%P.length,true);});
+document.getElementById("nextP").addEventListener("click",function(){show((cur+1)%P.length,true);});
+stageEl.addEventListener("pointerenter",function(){paused=true;});
+stageEl.addEventListener("pointerleave",function(){paused=false;progStart=Date.now();});
+document.addEventListener("visibilitychange",function(){paused=document.hidden;if(!paused)progStart=Date.now();});
+stageEl.addEventListener("keydown",function(e){if(e.key==="ArrowRight"){e.preventDefault();show((cur+1)%P.length,true);}else if(e.key==="ArrowLeft"){e.preventDefault();show((cur+P.length-1)%P.length,true);}});
+(function(){var sx=0,sy=0;stageEl.addEventListener("touchstart",function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});stageEl.addEventListener("touchend",function(e){var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)){show((cur+(dx<0?1:P.length-1))%P.length,true);}}, {passive:true});})();
+render(0);startAuto();
 /* tilt on stage (desktop) */
 var stage=document.getElementById("stage");
 if(window.matchMedia("(pointer:fine)").matches&&!RM){stage.addEventListener("pointermove",function(e){var r=stage.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;stage.style.transform="perspective(1200px) rotateY("+(x*2.2)+"deg) rotateX("+(-y*2.2)+"deg)";stage.style.setProperty("--gx",((x+.5)*100)+"%");stage.style.setProperty("--gy",((y+.5)*100)+"%");});stage.addEventListener("pointerleave",function(){stage.style.transform="";});
